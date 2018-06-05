@@ -17,6 +17,7 @@
 package com.example.android.android_me.ui;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -31,11 +32,17 @@ public class AndroidMeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_me);
 
+        Intent intent = getIntent();
+
+        int headIndex = intent.getIntExtra("headIndex", 0);
+        int bodyIndex = intent.getIntExtra("bodyIndex", 0);
+        int legIndex = intent.getIntExtra("legIndex", 0);
+
         if (savedInstanceState == null) {
             BodyPartFragment headFragment = new BodyPartFragment();
 
             headFragment.setImageIds(AndroidImageAssets.getHeads());
-            headFragment.setListIndex(1);
+            headFragment.setListIndex(headIndex);
 
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -45,7 +52,7 @@ public class AndroidMeActivity extends AppCompatActivity {
 
             BodyPartFragment bodyFragment = new BodyPartFragment();
             bodyFragment.setImageIds(AndroidImageAssets.getBodies());
-            bodyFragment.setListIndex(4);
+            bodyFragment.setListIndex(bodyIndex);
 
             fragmentManager.beginTransaction()
                     .add(R.id.body_container, bodyFragment)
@@ -53,7 +60,7 @@ public class AndroidMeActivity extends AppCompatActivity {
 
             BodyPartFragment legFragment = new BodyPartFragment();
             legFragment.setImageIds(AndroidImageAssets.getLegs());
-            legFragment.setListIndex(5);
+            legFragment.setListIndex(legIndex);
 
             fragmentManager.beginTransaction()
                     .add(R.id.leg_container, legFragment)
